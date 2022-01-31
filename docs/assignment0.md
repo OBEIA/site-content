@@ -32,3 +32,7 @@
 [Technical Tutorial Index](https://github.com/ApolloAuto/apollo/blob/master/docs/technical_tutorial/README.md)  
 [Hardware and Software Component Specifications](https://github.com/ApolloAuto/apollo/blob/master/docs/specs/README.md)  
 [Technical Code Readings and Algorithm Details](https://github.com/ApolloAuto/apollo/tree/master/docs/technical_documents)  
+
+## Domain Research
+
+[A functional reference architecture for autonomous driving](https://www.sciencedirect.com/science/article/abs/pii/S0950584915002177)  
