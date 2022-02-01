@@ -1,3 +1,6 @@
 site_name: "CISC 322 Group 35"
 site_url: "https://obeia.github.io"
 theme: cinder
+nav:
+  - Home: index.md
+  - Apollo Resources: assignment0.md
