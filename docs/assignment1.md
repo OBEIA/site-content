@@ -2,6 +2,16 @@
 
 (content to be added)
 
+---
+
+[Click here to access this report as a PDF. (Requires Queen's University login.)](https://queensuca-my.sharepoint.com/:b:/g/personal/18ehl_queensu_ca/ER1Ue0zqCk9MjQB9wQUscioBd-Mevlf5G6_-PDLRxOG71g?e=hsEH6H)  
+
+[Click here to access the accompanying presentation slides. (Requires Queen's University login.)](https://queensuca-my.sharepoint.com/:p:/g/personal/18ehl_queensu_ca/EXiHD_wBawdErUClh0id2lYBjSLnJ4lowY7eJPKUUuNUzg?e=lxWFfB)  
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Tyl7Pwjk2SI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
+
 ## Abstract
 
 Apollo is an open-source autonomous driving platform supporting the development of systems for self-driving vehicles. Such a system must carefully develop its architecture to fulfil the requirements of stakeholders such as investors, developers and users.  
