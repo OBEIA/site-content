@@ -32,7 +32,7 @@ Deriving the architecture presented involved reading academic papers as well as 
 Sagar Behere and Martin Törngren have formed a functional reference architecture for autonomous driving platforms up to level L4 of autonomy [\[Behere and Törngren 138\]](https://www.sciencedirect.com/science/article/abs/pii/S0950584915002177). As they discuss, this form of architecture is the starting point for architectural design of a system and may aid in other implementations in the field of focus, in this case, self-driving vehicles. Their reference architecture is depicted in Figure 1; it includes a variety of modules and components relating to the functionality of the vehicle.  
 
 <figure>
-    <img src="img/a1/figure1.png">
+    <img src="../img/a1/figure1.png">
     <figcaption><b>Figure 1:</b> A functional reference architecture for an autonomous driving platform, as provided by Behere and Törngren. [ibid., 143]</figcaption>
 </figure>
 
@@ -60,14 +60,14 @@ The development process of Apollo from 1.0 to 7.0 has been documented in detail,
 ### Overview
 
 <figure>
-    <img src="img/a1/figure2.png">
+    <img src="../img/a1/figure2.png">
     <figcaption><b>Figure 2:</b> Apollo 3.5 software architecture core modules interaction diagram, from the project documentation on GitHub. <a href="https://github.com/ApolloAuto/apollo/blob/master/docs/demo_guide/images/Apollo_3_5_software_architecture.png">[GitHub]</a></figcaption>
 </figure>
 
 Figure 2 represents the software architecture of Apollo as of version 3.5. As a top-level view of the architecture, it does not describe the system as closely as the functional reference architecture created by Behere and Törngren; however, both architectures feature similar key components, including perception, localization, and control. The planning component in the Apollo architecture may also coincide with the decision and control component of the reference architecture.  
 
 <figure>
-    <img src="img/a1/figure3.png">
+    <img src="../img/a1/figure3.png">
     <figcaption><b>Figure 3:</b> Description of various aspects of the Apollo 7.0 platform, as highlighted in the project documentation on GitHub.  <a href="https://github.com/ApolloAuto/apollo/blob/master/docs/demo_guide/images/Apollo_7_0.png">[GitHub]</a></figcaption>
 </figure>
 
@@ -78,12 +78,12 @@ The Apollo software architecture documentation only extends up to version 5.5, b
 Studying Apollo’s documentation reveals that the software platform consists of thirteen major subsystems: twelve providing autonomous vehicle functionality, and one providing a communication and runtime framework for the operation of the others. This central runtime is known as Apollo Cyber RT and is described in further detail below.  
 
 <figure>
-    <img src="img/a1/figure4.png">
+    <img src="../img/a1/figure4.png">
     <figcaption><b>Figure 4:</b> The dependency relations of Apollo’s software modules, derived from descriptions in the project documentation.</figcaption>
 </figure>
 
 <figure>
-    <img src="img/a1/figure5.png">
+    <img src="../img/a1/figure5.png">
     <figcaption><b>Figure 5:</b> The communication flow between the core Apollo modules.</figcaption>
 </figure>
 
@@ -186,7 +186,7 @@ Finally, it is worth noting that by using these mechanisms, the Control and CanB
 ## Use Cases
 
 <figure>
-    <img src="img/a1/figureuc0.png">
+    <img src="../img/a1/figureuc0.png">
     <figcaption><b>Figure UC0:</b> Sequence diagram of the ‘loop’ that the Apollo system goes through as it creates the optimal path for the vehicle to go. It is described in the text.</figcaption>
 </figure>
 
@@ -207,7 +207,7 @@ Planning uses the predicted trajectory of the leading car to produce a “collis
 The control module uses the planned trajectory along with localization information and car status coming from the CanBus to produce control signals for steering, brakes and throttle. In this case, it would be expected that the steering signal would only change the position of the wheels to follow the lane. Throttle and brake control signals should be mostly neutral as well unless the car ahead is stopping or accelerating quickly.  
 
 <figure>
-    <img src="img/a1/figureuc1.png">
+    <img src="../img/a1/figureuc1.png">
     <figcaption><b>Figure UC1:</b> Sequence diagram for the lane following use case, focusing on the system’s process from Perception to CanBus.</figcaption>
 </figure>
 
@@ -216,7 +216,7 @@ The control module uses the planned trajectory along with localization informati
 The second use case to be considered is the “Unprotected Left” scenario described in the details of the Planning module of Apollo 5.5 [\[GitHub\]](https://github.com/ApolloAuto/apollo/blob/r5.5.0/modules/planning/README.md); it is one scenario relating to a traffic light that remains within the Planning module [\[GitHub\]](https://github.com/ApolloAuto/apollo/blob/master/modules/planning/README.md). In this use case, the vehicle is to turn left through an intersection with a traffic light to continue to its destination; the term “unprotected” refers to how there is no distinct left/right turn light; the vehicle must yield to oncoming traffic. Specifics of what the vehicle should do are detailed in the README of 5.5’s Planning module.  
 
 <figure>
-    <img src="img/a1/figureuc2.png">
+    <img src="../img/a1/figureuc2.png">
     <figcaption><b>Figure UC2:</b> Sequence diagram of the Planning module’s determination of the optimal trajectory for the given use case of “unprotected left turn.”</figcaption>
 </figure>
 
@@ -239,8 +239,13 @@ In respect to the topic itself, we realized just how revealing quality documenta
 ## References
 
 Apollo Auto. “Robotaxi: Autonomous Driving Solution.” Baidu (2020). Retrieved from https://apollo.auto/robotaxi/index.html.  
+
 Apollo Auto. “Apollo Cyber Security.” Baidu (2020). Retrieved from https://apollo.auto/platform/security.html.  
+
 ApolloAuto. “ApolloAuto/apollo: An open autonomous driving platform.” GitHub. Last accessed February 18, 2022. Retrieved from https://github.com/ApolloAuto/apollo.  
+
 ApolloAuto. “Planning README at 5.5.0.” GitHub (2020). Retrieved from https://github.com/ApolloAuto/apollo/blob/r5.5.0/modules/planning/README.md.  
+
 Behere, Sagar, and Martin Törngren. “A functional reference architecture for autonomous driving.” KTH The Royal Institute of Technology, Brinellvägen 83, Stockholm SE-10044, Sweden (2015): 143. Retrieved from https://www.sciencedirect.com/science/article/abs/pii/S0950584915002177.  
+
 Shuttleworth, Jennifer. “SAE Standards News: J3016 automated-driving graphic update.” SAE International (January 7, 2019). Retrieved from https://www.sae.org/news/2019/01/sae-updates-j3016-automated-driving-graphic.  
