@@ -4,3 +4,4 @@ theme: cinder
 nav:
   - Home: index.md
   - Apollo Resources: assignment0.md
+  - Conceptual Architecture: assignment1.md
