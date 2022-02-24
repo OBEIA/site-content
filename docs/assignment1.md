@@ -1,7 +1,5 @@
 # The Conceptual Architecture of Apollo
 
-(content to be added)
-
 ---
 
 [Click here to access this report as a PDF. (Requires Queen's University login.)](https://queensuca-my.sharepoint.com/:b:/g/personal/18ehl_queensu_ca/ER1Ue0zqCk9MjQB9wQUscioBd-Mevlf5G6_-PDLRxOG71g?e=hsEH6H)  
