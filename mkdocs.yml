@@ -1,6 +1,13 @@
 site_name: "CISC 322 Group 35"
 site_url: "https://obeia.github.io"
-theme: cinder
+theme: 
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - toc.integrate
+    - navigation.top
 nav:
   - Home: index.md
   - Apollo Resources: assignment0.md
+  - Conceptual Architecture: assignment1.md

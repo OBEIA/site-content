@@ -22,7 +22,7 @@
 
 [Release Details](https://github.com/ApolloAuto/apollo/blob/master/RELEASE.md)  
 [Apollo Platform Component Detail](https://apollo.auto/developer.html)  
-[Quick Start Guide Index](https://github.com/ApolloAuto/apollo/blob/master/docs/quickstart/README.md)
+[Quick Start Guide Index](https://github.com/ApolloAuto/apollo/blob/master/docs/quickstart/README.md)  
 [How-To Guide Index](https://github.com/ApolloAuto/apollo/blob/master/docs/howto/README.md)  
 [FAQ Index](https://github.com/ApolloAuto/apollo/blob/master/docs/FAQs/README.md)  
 
