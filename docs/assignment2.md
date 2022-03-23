@@ -179,30 +179,111 @@ Upon comparison between our conceptual publish-subscribe architecture and the co
 
 **Table 2:** Dependencies found in concrete architecture not expected by conceptual.  
 
-| Listener Module | Talker Module | Discrepancy Details |
-| --- | --- | --- |
-| Drivers^1^ | Canbus | The `gnss::RawStream` class of the `GnssDriverComponent` is subscribed to `Chassis` messages. On a timer, it extracts speed data from the message and writes a corresponding wheel velocity command to the command stream. |
-| Drivers^1^ | Localization | The `ContiRadarCanbusComponent` is subscribed to `LocalizationEstimate` messages to extract the vehicle's pose data. Specifically, it uses orientation and linear velocity to calculate a speed and yaw rate, as required by the radar hardware. |
-| Guardian | Canbus | Guardian is subscribed to `Chassis` messages from Canbus so it can check for sonar faults and obstacles in the event of an emergency stop when safety mode is triggered. If either are found, the vehicle is supposed to make a hard emergency stop, otherwise a soft one can be made. However, since a change in June 2018, these flags are ignored pending “hardware re-alignment.” ([97b0b3c](https://github.com/ApolloAuto/apollo/commit/97b0b3c5efca8da07d30ed15b3a111ca08256b75#diff-4e1a1bbbd78f9cb83e4db62d0195c6d2118eecc61e66bf56cb338019b6b10e54R132-R137)) |
-| Guardian | Control | Guardian listens for `ControlCommand` messages from Control. When the system is not in safety mode, the `ControlCommand`s are wrapped in a `GuardianCommand` and published for Canbus to receive. When safety mode is enabled, the commands are blocked from reaching Canbus. Our assumption had been that the safety mode control logic existed in Canbus, which listened for commands from Control and a safety mode state from Guardian and considering both, rather than the commands passing through Guardian. |
-| Localization | Drivers^1^ | The Localization module relies on sensor data from Drivers in the form of `GnssBestPose`, `PointCloud`, `CorrectedImu`, and `InsStat` messages. |
-| Map | Canbus | `Chassis` messages from Canbus are listened for by the `RelativeMap` submodule of the Map component. In part of creating the relative map, it uses `Chassis` and `LocalizationEstimate` data to update the vehicle state. |
-| Map | Localization | `LocalizationEstimate` messages from Localization are listened for by the `RelativeMap` submodule of the Map component. In part of creating the relative map, it uses `Chassis` and `LocalizationEstimate` data to update the vehicle state. |
-| Map | Perception | `PerceptionObstacles` messages from the Perception module that contain lane marker data are used by the `RelativeMap` submodule of the Map component to create one or more navigation paths in the relative map. |
-| Monitor | Canbus | Initial analysis during the development of the conceptual architecture concluded that Monitor’s monitoring of other Apollo modules was primarily achieved by channel utilities provided by Cyber RT, and operations at the operating system level such as checking system resource usage and that processes are running. While those are all methods that Monitor employs, it also subscribes to topics of various modules to look out for anomalous activity.
-| | Control | |
-| | Dreamview | |
-| | Drivers^1^ | |
-| | Localization | |
-| | Map | |
-| | Perception | |
-| | Planning | |
-| | Prediction | |
-| Perception | Drivers^1^ | The Perception module receives LiDAR and radar data in the form of `PointCloud` and `ContiRadar` messages, respectively, from the Drivers module. |
-| Planning | Canbus | Planning listens for `Chassis` messages containing details of the vehicle state. The chassis data is combined with data from the other subscribed inputs as a `LocalView`, which “contains all the necessary data as planning input.” This input is not listed as a data input in the Planning documentation, so it was not considered in the conceptual architecture. |
-| Prediction | Storytelling | Prediction is subscribed to `Stories` messages from Storytelling, in order to be a part of cross-module coordination when a story scenario occurs. Prediction was not listed in the Storytelling documentation as an example subscriber, but any module could potentially be a story subscriber, depending on which stories have been implemented. The only story implemented so far is `CloseToJunction`, which requires Prediction. |
-| Task Manager^2^ | Localization | The Task Manager listens for `LocalizationEstimate` messages, which it uses for vehicle positioning data. The vehicle coordinates are used to determine the distance to waypoints in cycle and dead-end routing tasks. |
-| Task Manager^2^ | Routing | The Task Manager subscribes to `RoutingResponse` messages to confirm that routing requests that it has made have succeeded. |
+<table>
+<thead>
+<tr>
+<th>Listener Module</th>
+<th>Talker Module</th>
+<th>Discrepancy Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Drivers<sup>1</sup></td>
+<td>Canbus</td>
+<td>The <code>gnss::RawStream</code> class of the <code>GnssDriverComponent</code> is subscribed to <code>Chassis</code> messages. On a timer, it extracts speed data from the message and writes a corresponding wheel velocity command to the command stream.</td>
+</tr>
+<tr>
+<td>Drivers<sup>1</sup></td>
+<td>Localization</td>
+<td>The <code>ContiRadarCanbusComponent</code> is subscribed to <code>LocalizationEstimate</code> messages to extract the vehicle's pose data. Specifically, it uses orientation and linear velocity to calculate a speed and yaw rate, as required by the radar hardware.</td>
+</tr>
+<tr>
+<td>Guardian</td>
+<td>Canbus</td>
+<td>Guardian is subscribed to <code>Chassis</code> messages from Canbus so it can check for sonar faults and obstacles in the event of an emergency stop when safety mode is triggered. If either are found, the vehicle is supposed to make a hard emergency stop, otherwise a soft one can be made. However, since a change in June 2018, these flags are ignored pending “hardware re-alignment.” (<a href="https://github.com/ApolloAuto/apollo/commit/97b0b3c5efca8da07d30ed15b3a111ca08256b75#diff-4e1a1bbbd78f9cb83e4db62d0195c6d2118eecc61e66bf56cb338019b6b10e54R132-R137">97b0b3c</a>)</td>
+</tr>
+<tr>
+<td>Guardian</td>
+<td>Control</td>
+<td>Guardian listens for <code>ControlCommand</code> messages from Control. When the system is not in safety mode, the <code>ControlCommand</code>s are wrapped in a <code>GuardianCommand</code> and published for Canbus to receive. When safety mode is enabled, the commands are blocked from reaching Canbus. Our assumption had been that the safety mode control logic existed in Canbus, which listened for commands from Control and a safety mode state from Guardian and considering both, rather than the commands passing through Guardian.</td>
+</tr>
+<tr>
+<td>Localization</td>
+<td>Drivers<sup>1</sup></td>
+<td>The Localization module relies on sensor data from Drivers in the form of <code>GnssBestPose</code>, <code>PointCloud</code>, <code>CorrectedImu</code>, and <code>InsStat</code> messages.</td>
+</tr>
+<tr>
+<td>Map</td>
+<td>Canbus</td>
+<td><code>Chassis</code> messages from Canbus are listened for by the <code>RelativeMap</code> submodule of the Map component. In part of creating the relative map, it uses <code>Chassis</code> and <code>LocalizationEstimate</code> data to update the vehicle state.</td>
+</tr>
+<tr>
+<td>Map</td>
+<td>Localization</td>
+<td><code>LocalizationEstimate</code> messages from Localization are listened for by the <code>RelativeMap</code> submodule of the Map component. In part of creating the relative map, it uses <code>Chassis</code> and <code>LocalizationEstimate</code> data to update the vehicle state.</td>
+</tr>
+<tr>
+<td>Map</td>
+<td>Perception</td>
+<td><code>PerceptionObstacles</code> messages from the Perception module that contain lane marker data are used by the <code>RelativeMap</code> submodule of the Map component to create one or more navigation paths in the relative map.</td>
+</tr>
+<tr>
+<td rowspan="9">Monitor</td>
+<td>Canbus</td>
+<td rowspan="9">Initial analysis during the development of the conceptual architecture concluded that Monitor’s monitoring of other Apollo modules was primarily achieved by channel utilities provided by Cyber RT, and operations at the operating system level such as checking system resource usage and that processes are running. While those are all methods that Monitor employs, it also subscribes to topics of various modules to look out for anomalous activity.</td>
+</tr>
+<tr>
+<td>Control</td>
+</tr>
+<tr>
+<td>Dreamview</td>
+</tr>
+<tr>
+<td>Drivers<sup>1</sup></td>
+</tr>
+<tr>
+<td>Localization</td>
+</tr>
+<tr>
+<td>Map</td>
+</tr>
+<tr>
+<td>Perception</td>
+</tr>
+<tr>
+<td>Planning</td>
+</tr>
+<tr>
+<td>Prediction</td>
+</tr>
+<tr>
+<td>Perception</td>
+<td>Drivers<sup>1</sup></td>
+<td>The Perception module receives LiDAR and radar data in the form of <code>PointCloud</code> and <code>ContiRadar</code> messages, respectively, from the Drivers module.</td>
+</tr>
+<tr>
+<td>Planning</td>
+<td>Canbus</td>
+<td>Planning listens for <code>Chassis</code> messages containing details of the vehicle state. The chassis data is combined with data from the other subscribed inputs as a <code>LocalView</code>, which “contains all the necessary data as planning input.” This input is not listed as a data input in the Planning documentation, so it was not considered in the conceptual architecture.</td>
+</tr>
+<tr>
+<td>Prediction</td>
+<td>Storytelling</td>
+<td>Prediction is subscribed to <code>Stories</code> messages from Storytelling, in order to be a part of cross-module coordination when a story scenario occurs. Prediction was not listed in the Storytelling documentation as an example subscriber, but any module could potentially be a story subscriber, depending on which stories have been implemented. The only story implemented so far is <code>CloseToJunction</code>, which requires Prediction.</td>
+</tr>
+<tr>
+<td>Task Manager<sup>2</sup></td>
+<td>Localization</td>
+<td>The Task Manager listens for <code>LocalizationEstimate</code> messages, which it uses for vehicle positioning data. The vehicle coordinates are used to determine the distance to waypoints in cycle and dead-end routing tasks.</td>
+</tr>
+<tr>
+<td>Task Manager<sup>2</sup></td>
+<td>Routing</td>
+<td>The Task Manager subscribes to <code>RoutingResponse</code> messages to confirm that routing requests that it has made have succeeded.</td>
+</tr>
+</tbody>
+</table>
 
 1. Drivers had not been included in the conceptual architecture as a module, as such all publish-subscribe interactions involving it appear as a divergence.  
 2. Task Manager had not been included in the conceptual architecture as a module, as such all publish-subscribe interactions involving it appear as a divergence.  
