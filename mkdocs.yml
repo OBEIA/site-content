@@ -12,6 +12,7 @@ nav:
   - Apollo Resources: assignment0.md
   - Conceptual Architecture: assignment1.md
   - Concrete Architecture: assignment2.md
+  - Enhancement Proposal: assignment3.md
 markdown_extensions:
   - tables
   - md_in_html
