@@ -176,8 +176,8 @@ However, responsiveness may be affected negatively by this implementation. While
 ### Use Case 1 - Planning (Reading Vehicle State)
 
 <figure markdown>
-  ![Figure 4](img/a3/figure4.png)
-  <figcaption><b>Figure 4:</b> Inter- and intra-module dependencies of and on the vehicle state provider.</figcaption>
+  ![Figure 4](img/a3/figure4.jpg)
+  <figcaption><b>Figure 4:</b> Sequence diagram for reading the vehicle state, focusing on the Planning component.</figcaption>
 </figure>
 
 The first use case for the vehicle state provider is reading data from the vehicle state. This is done by various components; thus, this use case centers upon the Planning component and a scenario. It should be noted that many scenarios utilize the vehicle state, and while they may use it in different ways, this use case highlights how it is read by them. In the current system, this is read by shared pointers such as in the Map, and dependency injectors such as in Planning. However, with a publish-subscribe implementation of the proposed enhancement, components would instead read from the subscribed topic, `VehicleState`.  
@@ -187,8 +187,8 @@ Figure 4 presents a sequence diagram for this use case, based upon the system wi
 ### Use Case 2 (Updating Vehicle State)
 
 <figure markdown>
-  ![Figure 5](img/a3/figure5.png)
-  <figcaption><b>Figure 5:</b> Inter- and intra-module dependencies of and on the vehicle state provider.</figcaption>
+  ![Figure 5](img/a3/figure5.jpg)
+  <figcaption><b>Figure 5:</b> Sequence diagram for updating the vehicle state.</figcaption>
 </figure>
 
 The other possible use case for the current vehicle state provider is being updated. In the current system, the vehicle state is generally updated by other modules, such as Map and Control; however, with a publish-subscribe implementation of our proposed enhancement, the vehicle state would be instead updated upon localization or chassis data from Localization and Canbus, respectively.  
